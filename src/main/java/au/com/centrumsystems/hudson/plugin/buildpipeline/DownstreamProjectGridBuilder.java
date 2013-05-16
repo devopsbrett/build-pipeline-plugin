@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
+import jenkins.util.TimeDuration;
 
 /**
  * {@link ProjectGridBuilder} based on the upstream/downstream relationship.
@@ -178,7 +179,7 @@ public class DownstreamProjectGridBuilder extends ProjectGridBuilder {
         return new HttpResponse() {
             @Override
             public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException, ServletException {
-                p.doBuild(req, rsp);
+                p.doBuild(req, rsp, TimeDuration.fromString("0secs"));
             }
         };
     }
