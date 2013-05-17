@@ -197,12 +197,25 @@
         <j:if test="${hasBuildPermission}">
           <div class="icon-container">
             <div>
-              <a href='gridBuilder/build'>
+              <a onclick="return startPipeline(this)" href='gridBuilder/build'>
                 <img src="${rootURL}/images/24x24/clock.png" alt="Trigger a Pipeline" class="icon-with-caption" />
               </a>
             </div>
             <div>Run</div>
           </div>
+          <script type="text/javascript">
+              function startPipeline(a) {
+                new Ajax.Request(a.href, {
+                    onSuccess: function(response) {
+                        document.location.reload(true);
+                    },
+                    onFailure: function(response) {
+                        document.location.href=a.href;
+                    }
+                });
+                return false;
+              }
+          </script>
         </j:if>
 
 				<div class="icon-container">

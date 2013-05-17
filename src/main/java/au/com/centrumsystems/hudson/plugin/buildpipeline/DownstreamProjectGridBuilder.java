@@ -168,6 +168,27 @@ public class DownstreamProjectGridBuilder extends ProjectGridBuilder {
         final AbstractProject<?, ?> job = getFirstJob(owner);
         return job != null && job.hasPermission(Item.BUILD);
     }
+    
+    /**
+     * Ideally this action should never be hit. When it is it should just send
+     * a http redirect to the view or build it's referencing.
+     * 
+     * @param req
+     *      StaplerRequest object representing the current HTTP request
+     * @param owner
+     *      The view that created this gridBuilder
+     * @return HttpResponse
+     * @throws IOException 
+     */
+    public HttpResponse doIndex(StaplerRequest req, @AncestorInPath BuildPipelineView owner) throws IOException {
+        
+        return new HttpResponse() {
+            @Override
+            public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException, ServletException {
+                rsp.sendRedirect("../");
+            }
+        };
+    }
 
     @Override
     public HttpResponse doBuild(StaplerRequest req, @AncestorInPath BuildPipelineView owner) throws IOException {
